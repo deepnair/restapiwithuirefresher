@@ -15,12 +15,12 @@ const routes = (app: Express) => {
     
     app.route('/api/v1/login').post(validateResource(createSessionSchema), createSessionHandler)
     app.route('/api/v1/getSessions').post(requireUser, getSessionsHandler)
-    app.route('/api/v1/logout').post(requireUser, logoutSessionHandler)
+    app.route('/api/v1/logout').patch(requireUser, logoutSessionHandler)
 
     app.route('/api/v1/createProduct').post([requireUser, validateResource(createProductSchema)], createProductHandler)
     app.route('/api/v1/findProduct/:productId').get(validateResource(findProductSchema), findProductHandler)
-    app.route('/api/v1/updateProduct/:productId').post([requireUser, validateResource(updateProductSchema)], updateProductHandler)
-    app.route('/api/v1/deleteProduct/:productId').post([requireUser, validateResource(deleteProductSchema)], deleteProductHandler)
+    app.route('/api/v1/updateProduct/:productId').patch([requireUser, validateResource(updateProductSchema)], updateProductHandler)
+    app.route('/api/v1/deleteProduct/:productId').delete([requireUser, validateResource(deleteProductSchema)], deleteProductHandler)
 
     app.route('/api/v1/getMe').get(requireUser, getCurrentUser)
 }
